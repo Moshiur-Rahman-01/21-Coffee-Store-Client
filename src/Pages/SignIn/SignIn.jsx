@@ -1,8 +1,7 @@
-import React, { use } from 'react';
-import { AuthContext } from '../../Contexts/AuthContext';
+import UseAuth from '../../CustomHooks/UseAuth';
 
 const SignIn = () => {
-	const {signInUser} = use(AuthContext);
+	const {signInUser} = UseAuth();
 
 	const handleSignIn = (e) => {
 		e.preventDefault();

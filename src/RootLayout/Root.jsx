@@ -1,15 +1,15 @@
 import React from 'react';
 import { Outlet } from 'react-router';
-import Header from './Extra file/Header';
+import Navbar from '../Shared/Navbar';
 
 const Root = () => {
     return (
-        <div>
+        <div className='container mx-auto'>
             <header>
-                <Header></Header>
+                <Navbar></Navbar>
             </header>
             
-            <main className='max-w-7xl mx-auto'>
+            <main>
                 <Outlet></Outlet>
             </main>
             

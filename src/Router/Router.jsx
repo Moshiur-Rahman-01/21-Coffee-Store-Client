@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router";
-import Root from "../Root";
-import Home from "../Extra file/Home";
-import AddCoffee from "../Extra file/AddCoffee";
-import UpdateCoffee from "../Extra file/UpdateCoffee";
-import CoffeeDetails from "../Extra file/CoffeeDetails";
-import SignIn from "../Extra file/Form/SignIn";
-import SignUp from "../Extra file/Form/SignUp";
+import Root from "../RootLayout/Root";
+import Home from "../Pages/Homepage/Home";
+import AddCoffee from "../Pages/AddCoffee/AddCoffee";
+import UpdateCoffee from "../Pages/Homepage/UpdateCoffee";
+import CoffeeDetails from "../Pages/Homepage/CoffeeDetails";
+import SignIn from "../Pages/SignIn/SignIn";
+import SignUp from "../Pages/SignUp/SignUp";
 import Users from "../Extra file/Users MongoDB/Users";
+import Users2 from "../Extra file/Users MongoDB/Users2";
 
 export const router = createBrowserRouter([
     {
@@ -38,13 +39,17 @@ export const router = createBrowserRouter([
                 Component: SignIn
             },
             {
-                path: 'signup',
+                path: 'register',
                 Component: SignUp
             },
             {
                 path: 'users',
                 loader: () => fetch('http://localhost:3000/users'),
                 Component: Users
+            },
+            {
+                path: '/users2',
+                element: <Users2></Users2>,
             }
         ]
     },

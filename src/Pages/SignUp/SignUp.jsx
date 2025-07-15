@@ -1,10 +1,9 @@
-import React from 'react';
-import { use } from 'react';
-import { AuthContext } from '../../Contexts/AuthContext';
+import axios from 'axios';
 import Swal from 'sweetalert2';
+import UseAuth from '../../CustomHooks/UseAuth';
 
 const SignUp = () => {
-    const {createUser} = use(AuthContext);
+    const {createUser} = UseAuth();
     
     const handleSignUp = e => {
         e.preventDefault();
@@ -28,32 +27,48 @@ const SignUp = () => {
 				lastSignInTime: result.user?.metadata?.lastSignInTime
 			}
 			
-			console.log(email, password, userProfile);
+			// console.log(email, password, userProfile);
+
+			axios.post("http://localhost:3000/users", userProfile)
+			.then(data => {
+				console.log(data.data);
+				if(data.insertedId){
+					console.log("added successfully");
+					Swal.fire({
+					position: "center",
+					title: "Your account is created",
+					icon: "success",
+					showConfirmButton: false,
+					timer: 1500
+					});
+					// form.reset();
+				}
+			})
 
 			// DBMS
             // save profile info in the db
-            fetch("http://localhost:3000/users", {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(userProfile)
-            })
-            .then(res => res.json())
-            .then(data => {
-                console.log('after profile save', data)
-                if(data.insertedId){
-                                console.log("added successfully");
-                                Swal.fire({
-                                    position: "center",
-                                    title: "Your account is created",
-                                    icon: "success",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                // form.reset();
-                            }
-            })
+        //     fetch("http://localhost:3000/users", {
+        //         method: 'POST',
+        //         headers: {
+        //             'content-type': 'application/json'
+        //         },
+        //         body: JSON.stringify(userProfile)
+        //     })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log('after profile save', data)
+        //         if(data.insertedId){
+        //                         console.log("added successfully");
+        //                         Swal.fire({
+        //                             position: "center",
+        //                             title: "Your account is created",
+        //                             icon: "success",
+        //                             showConfirmButton: false,
+        //                             timer: 1500
+        //                         });
+        //                         // form.reset();
+        //                     }
+        //     })
         })
         .catch(error => {
             console.log(error)
